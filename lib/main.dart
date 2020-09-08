@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:quizzler/question.dart';
+import 'question.dart';
 
 void main() => runApp(Quizzler());
 
@@ -28,13 +30,11 @@ class _QuizPageState extends State<QuizPage> {
 
   List<Icon> scoreKeeper = [];
 
-  List<String> questions = [
-    'Os Estados Unidos e a Inglaterra eram aliados durante a Segunda Guerra Mundial e venceram a guerra.',
-    'A capital do Brasil é Brasília e se localiza no Amazonas.',
-    'Os sintomas da COVID-19 são similares aos de uma gripe comum'
+  List<Question> questionBank = [
+   Question(q: 'Os Estados Unidos e a Inglaterra eram aliados durante a Segunda Guerra Mundial e venceram a guerra.', a: true),
+   Question(q: 'A capital do Brasil é Brasília e se localiza no Amazonas.', a: false),
+   Question(q: 'Os sintomas da COVID-19 são similares aos de uma gripe comum', a: true),
   ];
-
-  List<bool> answers = [true, false, true];
 
   int questionNumber = 0;
 
@@ -50,7 +50,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                questions[questionNumber],
+                questionBank[questionNumber].questionText,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -74,7 +74,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                bool correctAnswer = answers[questionNumber];
+                bool correctAnswer = questionBank[questionNumber].questionAnswer;
 
                 if (correctAnswer == true){
                   print('user got it right!');
