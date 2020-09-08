@@ -25,6 +25,19 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+
+  List<Icon> scoreKeeper = [];
+
+  List<String> questions = [
+    'Os Estados Unidos e a Inglaterra eram aliados durante a Segunda Guerra Mundial e venceram a guerra.',
+    'A capital do Brasil é Brasília e se localiza no Amazonas.',
+    'Os sintomas da COVID-19 são similares aos de uma gripe comum'
+  ];
+
+  List<bool> answers = [true, false, true];
+
+  int questionNumber = 0;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -37,7 +50,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                'This is where the question text will go.',
+                questions[questionNumber],
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -54,14 +67,24 @@ class _QuizPageState extends State<QuizPage> {
               textColor: Colors.white,
               color: Colors.green,
               child: Text(
-                'True',
+                'Verdadeiro',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 20.0,
+                  fontSize: 10.0,
                 ),
               ),
               onPressed: () {
-                //The user picked true.
+                bool correctAnswer = answers[questionNumber];
+
+                if (correctAnswer == true){
+                  print('user got it right!');
+                } else {
+                  print('user got it wrong!');
+                }
+
+                setState(() {
+                  questionNumber++;
+                });
               },
             ),
           ),
@@ -72,19 +95,23 @@ class _QuizPageState extends State<QuizPage> {
             child: FlatButton(
               color: Colors.red,
               child: Text(
-                'False',
+                'Falso',
                 style: TextStyle(
-                  fontSize: 20.0,
+                  fontSize: 10.0,
                   color: Colors.white,
                 ),
               ),
               onPressed: () {
-                //The user picked false.
+                setState(() {
+                  questionNumber++;
+                });
               },
             ),
           ),
         ),
-        //TODO: Add a Row here as your score keeper
+        Row(
+          children: scoreKeeper,
+        )
       ],
     );
   }
